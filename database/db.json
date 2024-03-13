@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "stone",
+      "occupation": "cleaner",
+      "status": "single",
+      "Rnum": 20
+    },
+
+    {
+      "name": "Mary",
+      "occupation": "junior developer",
+      "status": "married",
+      "id": 2,
+      "Rnum": 19
+    },
+    {
+      "name": "John",
+      "occupation": "senior devloper",
+      "status": "married",
+      "id": 3,
+      "Rnum": 40
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+import { useState, useEffect } from "react";
+
+const useFetch = (url) => {
+  const [data, changeData] = useState(null);
+  const [pending, isPending] = useState(true);
+  const [error, invokeError] = useState(null);
+
+  const removeEvent = (id) => {
+    const newInfo = data.filter((info) => info.id !== id);
+    changeData(newInfo);
+  };
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("sorry something went wrong");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        changeData(data);
+        isPending(false);
+      })
+      .catch((error) => {
+        invokeError(error);
+        isPending(false);
+      });
+  }, [url]);
+
+  return { data, pending, error, removeEvent };
+};
+
+export default useFetch;
