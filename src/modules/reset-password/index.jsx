@@ -13,7 +13,7 @@ export const ResetPassword = () => {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ scale: 0, opacity: 0, x: -100, y: -20 }}
+        initial={{ scale: 1, opacity: 0, x: -100, y: 0 }}
         animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
         transition={{
           duration: 1,

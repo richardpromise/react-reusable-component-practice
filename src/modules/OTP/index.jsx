@@ -15,7 +15,7 @@ export default function OTP() {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ scale: 0, opacity: 0, x: -100, y: -20 }}
+        initial={{ scale: 1, opacity: 0, x: -100, y: 0 }}
         animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
         transition={{
           duration: 1,
@@ -34,28 +34,28 @@ export default function OTP() {
           </h1>
           <div className=" w-full">
             <p className="text-gray-500 pb-4 text-center">
-              Kindly enter the O.T.P sent to {params.email}{" "}
+              Kindly enter the O.T.P sent to {params.email}
             </p>
             <div className=" w-full flex justify-center gap-10">
               <input
                 type="email"
                 id="email"
-                className="border border-slate-400 shadow-md shadow-purple-500 opacity-40 p-4  w-10 outline-none hover:shadow-black   "
+                className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
               <input
                 type="email"
                 id="email"
-                className="border border-slate-400 shadow-md shadow-purple-500 opacity-40 p-4  w-10 outline-none hover:shadow-black   "
+                className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
               <input
                 type="email"
                 id="email"
-                className="border border-slate-400 shadow-md shadow-purple-500 opacity-40 p-4  w-10 outline-none hover:shadow-black   "
+                className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
               <input
                 type="email"
                 id="email"
-                className="border border-slate-400 shadow-md shadow-purple-500 opacity-40 p-4  w-10 outline-none hover:shadow-black   "
+                className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
             </div>
           </div>
