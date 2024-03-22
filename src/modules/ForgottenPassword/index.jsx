@@ -47,7 +47,12 @@ export default function ForgottenPassword() {
           />
 
           <div className="flex justify-center w-full">
-            <Button onClick={() => {}} isBtnDisabled={btn}>
+            <Button
+              onClick={() => {
+                handleSubmit();
+              }}
+              isBtnDisabled={btn}
+            >
               submit
             </Button>
           </div>
