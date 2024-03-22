@@ -20,8 +20,6 @@ const Register = () => {
   // button handler
   const [btnDisabled, btnEnabled] = React.useState(true);
 
-  // red border handler
-
   // save to local storage
   const saveToLocalstorage = () => {
     let formDetails;
@@ -33,7 +31,7 @@ const Register = () => {
     const userInfo = {
       userFullName: fullname,
       userEmail: email,
-      userPasEsword: password,
+      userPasEsword: confirmPassword,
     };
     formDetails.push(userInfo);
     localStorage.setItem("formDetails", JSON.stringify(formDetails));
@@ -44,6 +42,7 @@ const Register = () => {
     if (fullname.length < 4) {
       btnEnabled(true);
       isfullnameError("Must be atleast 5 characters ");
+      updateFullname("");
     } else {
       btnEnabled(false);
       isfullnameError("");
@@ -54,6 +53,7 @@ const Register = () => {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!regEmail.test(email)) {
       isEmailError("Invalid email address");
+      updateEmail("");
 
       btnEnabled(true);
     } else {
@@ -75,8 +75,9 @@ const Register = () => {
       !isContainsNumber.test(password)
     ) {
       btnEnabled(true);
+      updatePassword("");
       isuserNamePassword(
-        " 8 characters  uppercase ,Lowercase and at least one Digit. "
+        "8 characters  uppercase ,Lowercase and at least one Digit."
       );
     } else {
       isuserNamePassword("");
@@ -86,6 +87,7 @@ const Register = () => {
     // confirm password
 
     if (confirmPassword !== password) {
+      updateConfirmPassword("");
       btnEnabled(true);
       isConfirmPasswordError("Password dont Match");
     } else {

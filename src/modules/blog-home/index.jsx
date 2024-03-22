@@ -6,6 +6,8 @@ const BlogHome = () => {
     "bg-yellow-500 text-white border-none rounded-xl p-3 ml-3"
   );
 
+  const [username, updateUserName] = React.useState(false);
+
   const handleCLick = (value) => {
     changeName(value);
     if (value !== name) {
@@ -48,13 +50,16 @@ const BlogHome = () => {
         <h1 className={`inline ${className}`}>{name}</h1>
 
         <button
+          onClick={() => {
+            updateUserName(true);
+          }}
           type="submit"
           className="bg-green-500 text-white border-none rounded-xl p-3 block mt-2"
         >
           create a user
         </button>
 
-        {}
+        {username && <h1>Promise</h1>}
       </div>
     </div>
   );

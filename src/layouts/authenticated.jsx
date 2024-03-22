@@ -7,7 +7,7 @@ export default function Authenticated() {
     navigate("/auth");
   };
   return (
-    <div>
+    <div className="  ">
       <h1 className="font-bold text-4xl text-center">
         Still under construction watin youself dey find come here? oga go back
         to the login page and test all the clickable links and have peace before

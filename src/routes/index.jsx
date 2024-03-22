@@ -12,7 +12,7 @@ import BlogHome from "../modules/blog-home";
 
 const Mainapp = ({ children }) => {
   return (
-    <div className="h-screen w-full bg-slate-50">
+    <div className="h-screen w-full bg-slate-50 ">
       {children ? children : <Outlet />}
     </div>
   );
@@ -23,11 +23,13 @@ export default function MainRoutes() {
     {
       path: "/",
       element: <Mainapp />,
+      // first child
       children: [
         {
-          path: "/",
+          index: true,
           element: <Authenticated />,
         },
+        // second child
         {
           path: "/learn",
           element: <Learn />,
@@ -42,6 +44,7 @@ export default function MainRoutes() {
             },
           ],
         },
+        // third child
         {
           path: "/auth",
           element: <Unauthenticated />,
@@ -73,6 +76,7 @@ export default function MainRoutes() {
             },
           ],
         },
+        // end of third child
       ],
     },
   ]);

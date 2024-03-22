@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
 
 export default function ForgottenPassword() {
   const [email, setEmail] = useState("");
+  const [btn, isbtn] = useState(true);
 
   const navigate = useNavigate();
 
@@ -37,18 +39,17 @@ export default function ForgottenPassword() {
           <Textfield
             type={"email"}
             placeholder={"Emial@domian.com "}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              isbtn(false);
+            }}
             labal={"Enter account email"}
           />
 
           <div className="flex justify-center w-full">
-            <button
-              onClick={handleSubmit}
-              type="submit"
-              className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-4 px-16 rounded-full text-2xl w-full"
-            >
-              Submit
-            </button>
+            <Button onClick={() => {}} isBtnDisabled={btn}>
+              submit
+            </Button>
           </div>
         </div>
       </motion.div>

@@ -25,7 +25,7 @@ export default function Signin() {
 
     formDetails.forEach((item) => {
       if (email !== item.userEmail) {
-        isEmailError("Email does not exixt");
+        isEmailError("Email does not exist");
       } else {
         isEmailError("");
       }

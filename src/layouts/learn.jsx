@@ -6,7 +6,7 @@ const Learn = () => {
   const { pathname } = location;
 
   return (
-    <div>
+    <div className="bg-slate-100">
       <div className="flex justify-center border-b-2 border-gray-500 ">
         <div className=" container p-5">
           <nav className="flex justify-between items-center ">
@@ -43,7 +43,8 @@ const Learn = () => {
         </div>
       </div>
       <hr />
-      <div>
+
+      <div className="h-44">
         <Outlet />
       </div>
     </div>
