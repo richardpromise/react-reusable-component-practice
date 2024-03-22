@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+// import Textfield from "../../components/Textfield";
 
 export default function OTP() {
   const params = useParams();
@@ -36,25 +37,29 @@ export default function OTP() {
             <p className="text-gray-500 pb-4 text-center">
               Kindly enter the O.T.P sent to {params.email}
             </p>
-            <div className=" w-full flex justify-center gap-10">
+            <div className="w-full flex justify-center gap-10">
+              {/* <Textfield type={"number"} />
+              <Textfield type={"number"} />
+              <Textfield type={"number"} />
+              <Textfield type={"number"} /> */}
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="text"
                 className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="text"
                 className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="text"
                 className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="text"
                 className="border border-slate-400 shadow-md shadow-purple-500  p-4  w-10 outline-none hover:shadow-black   "
               />
             </div>

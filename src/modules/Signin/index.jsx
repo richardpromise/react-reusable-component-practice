@@ -1,13 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
 
 export default function Signin() {
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate("/");
+  const [emailError, isEmailError] = React.useState("");
+  const [passswordError, isuserNamePassword] = React.useState("");
+
+  // get form values
+  const [email, setEmail] = useState("");
+  const [passsword, setPassword] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(true);
+
+  const validate = () => {
+    let formDetails;
+    if (localStorage.getItem("formDetails") === null) {
+      formDetails = [];
+    } else {
+      formDetails = JSON.parse(localStorage.getItem("formDetails"));
+    }
+
+    formDetails.forEach((item) => {
+      if (email !== item.userEmail) {
+        isEmailError("Email does not exixt");
+      } else {
+        isEmailError("");
+      }
+
+      if (passsword !== item.userPasEsword) {
+        isuserNamePassword("Wrong password");
+      } else {
+        isuserNamePassword("");
+      }
+
+      if (email === item.userEmail && passsword === item.userPasEsword) {
+        handleNavigate();
+      }
+    });
   };
+
+  const handleNavigate = () => {
+    return !btnDisabled ? navigate("/learn") : null;
+  };
+
+  useEffect(() => {
+    setBtnDisabled(!(email !== "" && passsword !== ""));
+
+    // if (email !== "" && passsword !== "") {
+    //   setBtnDisabled(false);
+    // } else {
+    //   setBtnDisabled(true);
+    // }
+  }, [email, passsword]);
+
   return (
     <AnimatePresence>
       <motion.div
@@ -40,33 +88,31 @@ export default function Signin() {
           {/* form */}
           <form className="w-full ">
             <div className="flex flex-col items-center gap-10 w-full ">
-              {/* username */}
-              <div className=" w-full">
-                <label htmlFor="emial" className="text-gray-500">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="border border-slate-400 shadow-md shadow-purple-500  p-4 rounded-xl block w-full outline-none hover:shadow-black   "
-                  placeholder="useremail@domian.com"
-                />
-              </div>
-
               {/* email */}
-              <div className=" w-full">
-                <label htmlFor="password" className="text-gray-500">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="border border-slate-400 shadow-md shadow-purple-500  p-4 rounded-xl block w-full outline-none hover:shadow-black"
-                  placeholder="*********"
-                />
-              </div>
+              <Textfield
+                labal={"Email"}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                type={"email"}
+                value={email}
+                placeholder={"email@domain.com"}
+                msg={emailError}
+              />
 
               {/* password */}
+              <Textfield
+                labal={"Password"}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                type={"password"}
+                value={passsword}
+                placeholder={"Password"}
+                msg={passswordError}
+              />
+
+              {/* extra */}
               <div className="flex justify-between items-center w-full">
                 <div>
                   <input type="checkbox" className="text-purple-900 mr-2" />{" "}
@@ -81,14 +127,20 @@ export default function Signin() {
               </div>
 
               {/* submit */}
-              <div className="flex justify-center w-full">
-                <button
-                  onClick={handleNavigate}
+              <div className="w-full">
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    validate();
+                  }}
+                  isBtnDisabled={btnDisabled}
                   type="submit"
-                  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-4 px-16 rounded-full text-2xl w-full"
+                  variant="contained"
+                  size="fullwidth"
                 >
                   Log in
-                </button>
+                </Button>
               </div>
             </div>
           </form>

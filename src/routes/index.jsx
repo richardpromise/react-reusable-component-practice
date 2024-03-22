@@ -6,6 +6,9 @@ import OTP from "../modules/OTP";
 import Signin from "../modules/Signin";
 import Register from "../modules/register";
 import { ResetPassword } from "../modules/reset-password";
+import Learn from "../layouts/learn";
+
+import BlogHome from "../modules/blog-home";
 
 const Mainapp = ({ children }) => {
   return (
@@ -24,6 +27,20 @@ export default function MainRoutes() {
         {
           path: "/",
           element: <Authenticated />,
+        },
+        {
+          path: "/learn",
+          element: <Learn />,
+          children: [
+            {
+              index: true,
+              element: <BlogHome />,
+            },
+            {
+              path: "blog",
+              element: <h1>blog page</h1>,
+            },
+          ],
         },
         {
           path: "/auth",

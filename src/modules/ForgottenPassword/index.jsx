@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import Textfield from "../../components/Textfield";
 
 export default function ForgottenPassword() {
   const [email, setEmail] = useState("");
@@ -31,20 +32,14 @@ export default function ForgottenPassword() {
           <h1 className="text-gray-500 md:text-5xl text-3xl font-bold ">
             Reset password
           </h1>
-          <div className=" w-full">
-            <div className=" w-full">
-              <label htmlFor="emial" className="text-gray-500">
-                Enter account email
-              </label>
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                id="email"
-                className="border border-slate-400 shadow-md shadow-purple-500  p-4 rounded-xl block w-full outline-none hover:shadow-black   "
-                placeholder="useremail@domian.com"
-              />
-            </div>
-          </div>
+
+          {/* input */}
+          <Textfield
+            type={"email"}
+            placeholder={"Emial@domian.com "}
+            onChange={(e) => setEmail(e.target.value)}
+            labal={"Enter account email"}
+          />
 
           <div className="flex justify-center w-full">
             <button

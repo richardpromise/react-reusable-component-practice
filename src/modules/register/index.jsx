@@ -1,7 +1,112 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import Textfield from "../../components/Textfield";
+import Button from "../../components/Button";
+import React, { useEffect } from "react";
 
 const Register = () => {
+  // get input fields
+  const [fullname, updateFullname] = React.useState("");
+  const [email, updateEmail] = React.useState("");
+  const [password, updatePassword] = React.useState("");
+  const [confirmPassword, updateConfirmPassword] = React.useState("");
+
+  // show error message
+  const [FullnameError, isfullnameError] = React.useState("");
+  const [emailError, isEmailError] = React.useState("");
+  const [passswordError, isuserNamePassword] = React.useState("");
+  const [confirmPasswordError, isConfirmPasswordError] = React.useState("");
+
+  // button handler
+  const [btnDisabled, btnEnabled] = React.useState(true);
+
+  // red border handler
+
+  // save to local storage
+  const saveToLocalstorage = () => {
+    let formDetails;
+    if (localStorage.getItem("formDetails") === null) {
+      formDetails = [];
+    } else {
+      formDetails = JSON.parse(localStorage.getItem("formDetails"));
+    }
+    const userInfo = {
+      userFullName: fullname,
+      userEmail: email,
+      userPasEsword: password,
+    };
+    formDetails.push(userInfo);
+    localStorage.setItem("formDetails", JSON.stringify(formDetails));
+  };
+
+  const validate = () => {
+    // fullname
+    if (fullname.length < 4) {
+      btnEnabled(true);
+      isfullnameError("Must be atleast 5 characters ");
+    } else {
+      btnEnabled(false);
+      isfullnameError("");
+    }
+
+    // email
+    let regEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regEmail.test(email)) {
+      isEmailError("Invalid email address");
+
+      btnEnabled(true);
+    } else {
+      isEmailError("");
+      btnEnabled(false);
+    }
+
+    // password
+
+    const isNonWhiteSpace = /^\S*$/;
+    const isContainsUppercase = /^(?=.*[A-Z]).*$/;
+    const isContainsLowercase = /^(?=.*[a-z]).*$/;
+    const isContainsNumber = /^(?=.*[0-9]).*$/;
+
+    if (
+      !isNonWhiteSpace.test(password) ||
+      !isContainsLowercase.test(password) ||
+      !isContainsUppercase.test(password) ||
+      !isContainsNumber.test(password)
+    ) {
+      btnEnabled(true);
+      isuserNamePassword(
+        " 8 characters  uppercase ,Lowercase and at least one Digit. "
+      );
+    } else {
+      isuserNamePassword("");
+      btnEnabled(false);
+    }
+
+    // confirm password
+
+    if (confirmPassword !== password) {
+      btnEnabled(true);
+      isConfirmPasswordError("Password dont Match");
+    } else {
+      isConfirmPasswordError("");
+      btnEnabled(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      fullname !== "" &&
+      email !== "" &&
+      password !== "" &&
+      confirmPassword !== ""
+    ) {
+      btnEnabled(false);
+    } else {
+      btnEnabled(true);
+    }
+  }, [fullname, email, password, confirmPassword]);
+
   return (
     <AnimatePresence>
       <motion.div
@@ -31,57 +136,53 @@ const Register = () => {
           <form className="w-full ">
             <div className="flex flex-col items-center gap-5 w-full ">
               {/* Full name */}
-              <div className=" w-full text-black">
-                <label htmlFor="full-name" className="text-gray-500">
-                  Full Name
-                </label>
-                <input
-                  type="Text"
-                  id="full-name"
-                  className="border border-slate-400 shadow-md shadow-purple-500   p-3  block w-full rounded-lg text-black outline-none hover:shadow-black "
-                  placeholder="Full Name"
-                />
-              </div>
+              <Textfield
+                type={"text"}
+                labal={"Full name"}
+                placeholder={"fullname"}
+                value={fullname}
+                onChange={(e) => {
+                  updateFullname(e.target.value);
+                }}
+                msg={FullnameError}
+              />
 
               {/* email */}
-              <div className=" w-full text-black">
-                <label htmlFor="Email" className="text-gray-500">
-                  Emial
-                </label>
-                <input
-                  type="email"
-                  id="Email"
-                  className="border border-slate-400 shadow-md shadow-purple-500   p-3  text-black outline-none hover:shadow-black block w-full rounded-lg"
-                  placeholder="user@domain.com"
-                />
-              </div>
+              <Textfield
+                type={"email"}
+                labal={"Email"}
+                placeholder={"user@domain.com"}
+                value={email}
+                onChange={(e) => {
+                  updateEmail(e.target.value);
+                }}
+                msg={emailError}
+              />
 
               {/* password */}
-              <div className=" w-full text-black">
-                <label htmlFor="password" className="text-gray-500">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className=" border border-slate-400 shadow-md shadow-purple-500  p-3 text-black outline-none hover:shadow-black  block w-full rounded-lg"
-                  placeholder="*********"
-                />
-              </div>
+              <Textfield
+                type={"password"}
+                labal={"Password"}
+                placeholder={"*****"}
+                value={password}
+                onChange={(e) => {
+                  updatePassword(e.target.value);
+                }}
+                msg={passswordError}
+              />
               {/* confirm password */}
-              <div className=" w-full text-black">
-                <label htmlFor="C-password" className="text-gray-500">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="C-password"
-                  className=" border border-slate-400 shadow-md shadow-purple-500  p-3 text-black outline-none hover:shadow-black  block w-full rounded-lg"
-                  placeholder="*********"
-                />
-              </div>
+              <Textfield
+                type={"password"}
+                labal={"Confirm Password"}
+                placeholder={"*****"}
+                value={confirmPassword}
+                onChange={(e) => {
+                  updateConfirmPassword(e.target.value);
+                }}
+                msg={confirmPasswordError}
+              />
 
-              {/* Remember me */}
+              {/* Already have an account? */}
               <div className="flex justify-start items-start  w-full">
                 <p className="pb-5">
                   Already have an account?{" "}
@@ -95,12 +196,16 @@ const Register = () => {
 
               {/* submit */}
               <div className="flex justify-center w-full">
-                <button
-                  type="submit"
-                  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-4 px-16 rounded-full text-2xl w-full tracking-wider"
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    validate();
+                    saveToLocalstorage();
+                  }}
+                  isBtnDisabled={btnDisabled}
                 >
                   Submit
-                </button>
+                </Button>
               </div>
             </div>
           </form>
