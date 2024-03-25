@@ -46,6 +46,7 @@ export default function ForgottenPassword() {
             labal={"Enter account email"}
           />
 
+          {/* Button */}
           <div className="flex justify-center w-full">
             <Button
               onClick={() => {

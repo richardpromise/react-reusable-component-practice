@@ -7,7 +7,6 @@ import Signin from "../modules/Signin";
 import Register from "../modules/register";
 import { ResetPassword } from "../modules/reset-password";
 import Learn from "../layouts/learn";
-
 import BlogHome from "../modules/blog-home";
 
 const Mainapp = ({ children }) => {

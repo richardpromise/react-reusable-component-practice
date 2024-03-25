@@ -1,113 +1,96 @@
-import { Link } from "react-router-dom";
+/* eslint-disable no-useless-escape */
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Textfield from "../../components/Textfield";
 import Button from "../../components/Button";
 import React, { useEffect } from "react";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   // get input fields
-  const [fullname, updateFullname] = React.useState("");
+  const [firstname, updateFirstname] = React.useState("");
+  const [lastname, isLastname] = React.useState("");
   const [email, updateEmail] = React.useState("");
   const [password, updatePassword] = React.useState("");
-  const [confirmPassword, updateConfirmPassword] = React.useState("");
 
   // show error message
   const [FullnameError, isfullnameError] = React.useState("");
   const [emailError, isEmailError] = React.useState("");
   const [passswordError, isuserNamePassword] = React.useState("");
-  const [confirmPasswordError, isConfirmPasswordError] = React.useState("");
 
   // button handler
   const [btnDisabled, btnEnabled] = React.useState(true);
 
-  // save to local storage
-  const saveToLocalstorage = () => {
+  // Form validation
+  const validate = () => {
+    const userInfo = {
+      userFullName: "",
+      userEmail: "",
+      userPasEsword: "",
+    };
+
+    // Firstname  Validation
+    if (firstname.length < 2) {
+      isfullnameError("Must be atleast 5 characters ");
+      userInfo.userFullName = "";
+    } else {
+      isfullnameError("");
+      userInfo.userFullName = `${firstname} ${lastname}`;
+    }
+
+    // Email regex
+    let regEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // Email validation
+    if (!regEmail.test(email)) {
+      isEmailError("Email must be valid");
+    } else {
+      isEmailError("");
+      userInfo.userEmail = email;
+    }
+
+    // Password validation
+    if (password.length < 6) {
+      isuserNamePassword("Password must be atleast 6 characters");
+      userInfo.userPasEsword = "";
+    } else {
+      userInfo.userPasEsword = password;
+      isuserNamePassword("");
+    }
+
+    // Save to localstorage
     let formDetails;
     if (localStorage.getItem("formDetails") === null) {
       formDetails = [];
     } else {
       formDetails = JSON.parse(localStorage.getItem("formDetails"));
     }
-    const userInfo = {
-      userFullName: fullname,
-      userEmail: email,
-      userPasEsword: confirmPassword,
-    };
-    formDetails.push(userInfo);
-    localStorage.setItem("formDetails", JSON.stringify(formDetails));
-  };
-
-  const validate = () => {
-    // fullname
-    if (fullname.length < 4) {
-      btnEnabled(true);
-      isfullnameError("Must be atleast 5 characters ");
-      updateFullname("");
-    } else {
-      btnEnabled(false);
-      isfullnameError("");
-    }
-
-    // email
-    let regEmail =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!regEmail.test(email)) {
-      isEmailError("Invalid email address");
-      updateEmail("");
-
-      btnEnabled(true);
-    } else {
-      isEmailError("");
-      btnEnabled(false);
-    }
-
-    // password
-
-    const isNonWhiteSpace = /^\S*$/;
-    const isContainsUppercase = /^(?=.*[A-Z]).*$/;
-    const isContainsLowercase = /^(?=.*[a-z]).*$/;
-    const isContainsNumber = /^(?=.*[0-9]).*$/;
 
     if (
-      !isNonWhiteSpace.test(password) ||
-      !isContainsLowercase.test(password) ||
-      !isContainsUppercase.test(password) ||
-      !isContainsNumber.test(password)
+      userInfo.userEmail !== "" &&
+      userInfo.userPasEsword !== "" &&
+      userInfo.userFullName !== ""
     ) {
-      btnEnabled(true);
-      updatePassword("");
-      isuserNamePassword(
-        "8 characters  uppercase ,Lowercase and at least one Digit."
-      );
-    } else {
-      isuserNamePassword("");
-      btnEnabled(false);
-    }
-
-    // confirm password
-
-    if (confirmPassword !== password) {
-      updateConfirmPassword("");
-      btnEnabled(true);
-      isConfirmPasswordError("Password dont Match");
-    } else {
-      isConfirmPasswordError("");
-      btnEnabled(false);
+      formDetails.push(userInfo);
+      localStorage.setItem("formDetails", JSON.stringify(formDetails));
+      navigate("/auth");
     }
   };
 
+  // monitor input
   useEffect(() => {
     if (
-      fullname !== "" &&
+      firstname !== "" &&
+      lastname !== "" &&
       email !== "" &&
-      password !== "" &&
-      confirmPassword !== ""
+      password !== ""
     ) {
       btnEnabled(false);
     } else {
       btnEnabled(true);
     }
-  }, [fullname, email, password, confirmPassword]);
+  }, [firstname, lastname, email, password]);
 
   return (
     <AnimatePresence>
@@ -135,18 +118,29 @@ const Register = () => {
           </div>
 
           {/* form */}
-          <form className="w-full ">
+          <form className="w-full relative ">
             <div className="flex flex-col items-center gap-5 w-full ">
-              {/* Full name */}
+              {/* first name */}
               <Textfield
                 type={"text"}
-                labal={"Full name"}
-                placeholder={"fullname"}
-                value={fullname}
+                labal={"First name"}
+                placeholder={"First name"}
+                value={firstname}
                 onChange={(e) => {
-                  updateFullname(e.target.value);
+                  updateFirstname(e.target.value);
                 }}
                 msg={FullnameError}
+              />
+
+              {/* Last name */}
+              <Textfield
+                type={"text"}
+                labal={"last name"}
+                placeholder={"lastname"}
+                value={lastname}
+                onChange={(e) => {
+                  isLastname(e.target.value);
+                }}
               />
 
               {/* email */}
@@ -172,17 +166,6 @@ const Register = () => {
                 }}
                 msg={passswordError}
               />
-              {/* confirm password */}
-              <Textfield
-                type={"password"}
-                labal={"Confirm Password"}
-                placeholder={"*****"}
-                value={confirmPassword}
-                onChange={(e) => {
-                  updateConfirmPassword(e.target.value);
-                }}
-                msg={confirmPasswordError}
-              />
 
               {/* Already have an account? */}
               <div className="flex justify-start items-start  w-full">
@@ -200,9 +183,8 @@ const Register = () => {
               <div className="flex justify-center w-full">
                 <Button
                   onClick={(e) => {
-                    e.preventDefault();
                     validate();
-                    saveToLocalstorage();
+                    e.preventDefault();
                   }}
                   isBtnDisabled={btnDisabled}
                 >
