@@ -4,6 +4,7 @@ export default function Button({
   children,
   isBtnDisabled,
   onClick,
+  touches,
 
   size = "fullwidth",
   variant = "contained",
@@ -12,7 +13,7 @@ export default function Button({
     if (variant === "contained") {
       return isBtnDisabled
         ? "bg-purple-300 cursor-not-allowed text-white"
-        : "bg-purple-500 hover:bg-purple-700 text-white";
+        : "bg-purple-500 hover:bg-purple-800 text-white";
     } else if (variant === "outlined") {
       return "border-2 border-purple-500 text-purple-500";
     }
@@ -34,7 +35,7 @@ ${
 }
 
       
-        font-bold py-2 rounded-lg text-lg `}
+        font-bold py-2 rounded-lg text-lg ${touches} `}
     >
       {children}
     </button>

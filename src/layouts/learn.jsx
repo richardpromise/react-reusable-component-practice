@@ -44,7 +44,7 @@ const Learn = () => {
       </div>
       <hr />
 
-      <div className="h-44">
+      <div className="">
         <Outlet />
       </div>
     </div>

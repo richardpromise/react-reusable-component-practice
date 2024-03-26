@@ -21,23 +21,27 @@ const BlogHome = () => {
     }
   };
 
-  // const userInfo = [
-  //   {
-  //     id: 1,
-  //     name: "john doe",
-  //     age: 20,
-  //     status: "developer",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "james doe",
-  //     age: 90,
-  //     status: "Lawyer",
-  //   },
-  // ];
+  const userInfo = [
+    {
+      id: 1,
+      name: "john doe",
+      age: 20,
+      status: "developer",
+    },
+    {
+      id: 2,
+      name: "james doe",
+      age: 90,
+      status: "Lawyer",
+    },
+  ];
+
+  // const [showList, ishowList] = React.useState(false)
+
+  // const items = [{ name: "John", age: "22 ", status: "single" }];
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center justify-center">
       <div className=" container p-5">
         <button
           className=" bg-purple-500 text-white border-none rounded-xl p-3  mt-2"
@@ -58,7 +62,6 @@ const BlogHome = () => {
         >
           create a user
         </button>
-
         {username && <h1>Promise</h1>}
       </div>
     </div>
