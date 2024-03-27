@@ -21,20 +21,20 @@ const BlogHome = () => {
     }
   };
 
-  const userInfo = [
-    {
-      id: 1,
-      name: "john doe",
-      age: 20,
-      status: "developer",
-    },
-    {
-      id: 2,
-      name: "james doe",
-      age: 90,
-      status: "Lawyer",
-    },
-  ];
+  // const userInfo = [
+  //   {
+  //     id: 1,
+  //     name: "john doe",
+  //     age: 20,
+  //     status: "developer",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "james doe",
+  //     age: 90,
+  //     status: "Lawyer",
+  //   },
+  // ];
 
   // const [showList, ishowList] = React.useState(false)
 

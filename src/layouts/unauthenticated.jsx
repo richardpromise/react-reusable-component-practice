@@ -15,7 +15,7 @@ export default function Unauthenticated() {
         <div className="flex flex-col justify-center h-screen w-full items-center ">
           <h1 className="font-bold text-purple-200 text-6xl lg:text-8xl 2xl:text-9xl  z-10">
             Project{" "}
-            <span className="text-pretty text-white 2xl:text-8xl">Box</span>
+            <span className="text-pretty text-white 2xl:text-8xl">Hub</span>
           </h1>
           <p className="pt-14 text-white 2xl:text-xl font-bold z-10">
             Debugging attracts depression.....

@@ -6,9 +6,8 @@ import OTP from "../modules/OTP";
 import Signin from "../modules/Signin";
 import Register from "../modules/register";
 import { ResetPassword } from "../modules/reset-password";
-import Learn from "../layouts/learn";
 import BlogHome from "../modules/blog-home";
-
+import LandingPage from "../layouts/landingPage";
 const Mainapp = ({ children }) => {
   return (
     <div className="h-screen w-full bg-slate-50 ">
@@ -26,12 +25,12 @@ export default function MainRoutes() {
       children: [
         {
           index: true,
-          element: <Authenticated />,
+          element: <LandingPage />,
         },
         // second child
         {
-          path: "/learn",
-          element: <Learn />,
+          path: "/verified",
+          element: <Authenticated />,
           children: [
             {
               index: true,

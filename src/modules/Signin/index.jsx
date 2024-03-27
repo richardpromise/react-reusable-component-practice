@@ -70,7 +70,7 @@ export default function Signin() {
   };
 
   const handleNavigate = () => {
-    return !btnDisabled ? navigate("/learn") : null;
+    return !btnDisabled ? navigate("/verified") : null;
   };
 
   useEffect(() => {
