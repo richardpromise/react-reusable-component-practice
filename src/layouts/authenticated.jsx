@@ -15,10 +15,10 @@ const Authenticated = () => {
             </div>
             <div className="p-1">
               <ul className="list-none flex gap-16 text-xl p-1">
-                <Link to={"/learn"}>
+                <Link to={"/verified"}>
                   <li
                     className={`hover:border-b-2 p-1 hover:border-red-200 hover:duration-200 ${
-                      pathname === "/learn"
+                      pathname === "/verified"
                         ? "border-b-2 border-red-200 text-red-500"
                         : ""
                     }`}
@@ -26,10 +26,10 @@ const Authenticated = () => {
                     Home{" "}
                   </li>
                 </Link>
-                <Link to={"/learn/blog"}>
+                <Link to={"/verified/blog"}>
                   <li
                     className={`hover:border-b-2 p-1  hover:border-red-200 hover:duration-200 ${
-                      pathname === "/learn/blog"
+                      pathname === "/verified/blog"
                         ? "border-b-2 border-red-200 text-red-500 transition duration-300"
                         : ""
                     }`}
